@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "364653418050",
+    "project_id": "flash-chat-e3358",
+    "storage_bucket": "flash-chat-e3358.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:364653418050:android:d3c5523be3bb6075633fdb",
+        "android_client_info": {
+          "package_name": "com.fadilrafeek.flash_chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "364653418050-2shublg37gfeq4jk70ia3fmdsmnkv2du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB74w1FsdlGmPG4TqAjTtZgqu6X4_ihSLM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "364653418050-2shublg37gfeq4jk70ia3fmdsmnkv2du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
