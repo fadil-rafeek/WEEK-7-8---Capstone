@@ -43,11 +43,12 @@ class _ChatScreenState extends State<ChatScreen> {
         leading: null,
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.close),
-              onPressed: () {
-                _auth.signOut();
-                Navigator.pop(context);
-              }),
+            icon: Icon(Icons.close),
+            onPressed: () {
+              _auth.signOut();
+              Navigator.pop(context);
+            },
+          ),
         ],
         title: Text('⚡️Chat'),
         backgroundColor: Colors.lightBlueAccent,
@@ -83,6 +84,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 _fireStore.collection('messages').add({
                   'text': messageText,
                   'sender': loggedInUser?.email,
+                  'timestamp': FieldValue.serverTimestamp(),
                 });
               },
               child: Text(
@@ -101,10 +103,14 @@ class MessagesStream extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder<QuerySnapshot>(
-      stream: _fireStore.collection('messages').snapshots(),
+      // order the messages by timestamp in ascending order
+      stream: _fireStore
+          .collection("messages")
+          .orderBy('timestamp', descending: false)
+          .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasData) {
-          final messages = snapshot.data!.docs.reversed;
+          final messages = snapshot.data!.docs;
           List<MessageBubble> messageBubbles = [];
           for (var message in messages) {
             final messageText = message.get('text');
@@ -119,14 +125,10 @@ class MessagesStream extends StatelessWidget {
             messageBubbles.add(messageBubble);
           }
           return Flexible(
-            child: SizedBox(
-              height: 500.0,
-              width: 500.0,
-              child: ListView(
-                reverse: true,
-                padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
-                children: messageBubbles,
-              ),
+            child: ListView(
+              reverse: true,
+              padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0),
+              children: messageBubbles.reversed.toList(),
             ),
           );
         }
